@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oscar-ochoa-front-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: oscar-ochoa-front
+  template:
+    metadata:
+      labels:
+        app: oscar-ochoa-front
+    spec:
+      containers:
+        - name: oscar-ochoa-front
+          image: oscarochoa01/mis-apis-frontend:8eac1318bda2ab58de8e42c9240f81d85885c34a
+          ports:
+            - containerPort: 80
+          env:
+            - name: VITE_API_BASE_URL
+              value: "http://localhost:30085/api"
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+            initialDelaySeconds: 20
+            periodSeconds: 10

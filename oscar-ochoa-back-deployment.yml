@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oscar-ochoa-back-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: oscar-ochoa-back
+  template:
+    metadata:
+      labels:
+        app: oscar-ochoa-back
+    spec:
+      containers:
+        - name: oscar-ochoa-back
+          image: oscarochoa01/mis-apis:0971bf5ce52c3a5b986d3996942e5b92c1378398
+          ports:
+            - containerPort: 8085
+          envFrom:
+            - configMapRef:
+                name: oscar-ochoa-back-configmap
+            - secretRef:
+                name: oscar-ochoa-back-secret
+          # Probes TCP (funcionan aunque la app no tenga /health)
+          readinessProbe:
+            tcpSocket:
+              port: 8085
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            failureThreshold: 3
+          livenessProbe:
+            tcpSocket:
+              port: 8085
+            initialDelaySeconds: 20
+            periodSeconds: 10
+            failureThreshold: 3

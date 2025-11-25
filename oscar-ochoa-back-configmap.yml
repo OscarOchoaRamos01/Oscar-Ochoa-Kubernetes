@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: oscar-ochoa-back-configmap
+data:
+  PORT: "8085"
+  MONGODB_DATABASE: "age_detector_db"
+  RAPIDAPI_CHATGPT_URL: "https://chatgpt-42.p.rapidapi.com/gpt4o"
+  RAPIDAPI_CHATGPT_HOST: "chatgpt-42.p.rapidapi.com"
+  RAPIDAPI_IMAGE_URL: "https://ai-text-to-image-generator-flux-free-api.p.rapidapi.com/aaaaaaaaaaaaaaaaaiimagegenerator/quick.php"
+  RAPIDAPI_IMAGE_HOST: "ai-text-to-image-generator-flux-free-api.p.rapidapi.com"
